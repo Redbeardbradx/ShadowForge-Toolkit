@@ -1,0 +1,12 @@
+{
+  "timestamp": "2025-11-23T02:19:18.478913",
+  "target": "localhost",
+  "open_ports": [
+    "135/tcp  open     msrpc         Microsoft Windows RPC",
+    "445/tcp  open     microsoft-ds?",
+    "1042/tcp open     afrog?",
+    "1043/tcp open     ssl/boinc?",
+    "5357/tcp open     http          Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)"
+  ],
+  "full_output": "OS:=R%O=%RD=0%Q=)T5(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)T6(R=Y%DF=Y%\nOS:T=40%W=0%S=A%A=O%F=R%O=%RD=0%Q=)T7(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD\nOS:=0%Q=)U1(R=Y%DF=N%T=40%IPL=164%UN=0%RIPL=G%RID=G%RIPCK=Z%RUCK=G%RUD=G)IE\nOS:(R=Y%DFI=N%T=40%CD=Z)\n\nNetwork Distance: 0 hops\nService Info: OS: Windows; CPE: cpe:/o:microsoft:windows\n\nOS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .\nNmap done: 1 IP address (1 host up) scanned in 34.51 seconds\n"
+}
