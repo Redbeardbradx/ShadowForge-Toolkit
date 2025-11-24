@@ -1,0 +1,8 @@
+# Dynamic hauls – no vault bloat
+reports/*.json
+# Sweat trails
+*.log
+os_log.txt
+# Ghosts
+__pycache__/
+.env
