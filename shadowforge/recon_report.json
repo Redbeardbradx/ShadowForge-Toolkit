@@ -1,12 +1,42 @@
 {
-  "timestamp": "2025-11-23T02:19:18.478913",
-  "target": "localhost",
+  "timestamp": "2025-11-23T19:59:25.513032",
+  "target": "192.168.1.1",
+  "status": "stealth_vein_complete",
+  "stealth_ping": "hit",
   "open_ports": [
-    "135/tcp  open     msrpc         Microsoft Windows RPC",
-    "445/tcp  open     microsoft-ds?",
-    "1042/tcp open     afrog?",
-    "1043/tcp open     ssl/boinc?",
-    "5357/tcp open     http          Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)"
+    "53/tcp    open     tcpwrapped",
+    "80/tcp    open     tcpwrapped",
+    "139/tcp   open     tcpwrapped",
+    "445/tcp   open     tcpwrapped",
+    "10000/tcp open     tcpwrapped",
+    "49152/tcp open     tcpwrapped"
   ],
-  "full_output": "OS:=R%O=%RD=0%Q=)T5(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)T6(R=Y%DF=Y%\nOS:T=40%W=0%S=A%A=O%F=R%O=%RD=0%Q=)T7(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD\nOS:=0%Q=)U1(R=Y%DF=N%T=40%IPL=164%UN=0%RIPL=G%RID=G%RIPCK=Z%RUCK=G%RUD=G)IE\nOS:(R=Y%DFI=N%T=40%CD=Z)\n\nNetwork Distance: 0 hops\nService Info: OS: Windows; CPE: cpe:/o:microsoft:windows\n\nOS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .\nNmap done: 1 IP address (1 host up) scanned in 34.51 seconds\n"
+  "parsed_ports": {
+    "53": {
+      "service": "tcpwrapped",
+      "version": "unknown"
+    },
+    "80": {
+      "service": "tcpwrapped",
+      "version": "unknown"
+    },
+    "139": {
+      "service": "tcpwrapped",
+      "version": "unknown"
+    },
+    "445": {
+      "service": "tcpwrapped",
+      "version": "unknown"
+    },
+    "10000": {
+      "service": "tcpwrapped",
+      "version": "unknown"
+    },
+    "49152": {
+      "service": "tcpwrapped",
+      "version": "unknown"
+    }
+  },
+  "vuln_seeds": [],
+  "full_output": "Starting Nmap 7.98 ( https://nmap.org ) at 2025-11-23 19:59 -0700\nNmap scan report for 192.168.1.1\nHost is up (0.00096s latency).\nNot shown: 93 closed tcp ports (reset)\nPORT      STATE    SERVICE    VERSION\n53/tcp    open     tcpwrapped\n80/tcp    open     tcpwrapped\n139/tcp   open     tcpwrapped\n443/tcp   filtered https\n445/tcp   open     tcpwrapped\n10000/tcp open     tcpwrapped\n49152/tcp open     tcpwrapped\nMAC Address: 60:38:E0:8C:01:3B (Belkin International)\n\nService detection performed. Please report any incorrect results at https://nmap.org/submit/ .\nNmap done: 1 IP address (1 host up) scanned in 3.99 seconds\n"
 }
