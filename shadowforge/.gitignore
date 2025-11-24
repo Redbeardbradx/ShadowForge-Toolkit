@@ -1,8 +1,14 @@
 # Dynamic hauls – no vault bloat
 reports/*.json
+recon_report.json  # Shield vein if dynamic; git for collab proof
 # Sweat trails
 *.log
 os_log.txt
 # Ghosts
 __pycache__/
 .env
+recon_report.json  # Optional – dynamic vein; git if collab teaser e p o r t s / * . j s o n 
+ 
+ r e p o r t s / * . j s o n 
+ 
+ 

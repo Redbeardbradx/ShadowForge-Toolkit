@@ -1,64 +1,39 @@
-import subprocess
-import json
-import xml.etree.ElementTree as ET
+# recon.py – ShadowForge Network Recon Beast (Nmap wrapper + JSON vuln spit)
+# Barn bolt: E:\ShadowForge\shadowforge\modules\recon.py
+import subprocess, json, sys, argparse, os
+from datetime import datetime
 
-# Raw ANSI colors – no utils dependency, pure ranch steel
-GREEN = "\033[32m"
-YELLOW = "\033[33m"
-RESET = "\033[0m"
+# Barn root for chains (e.g., auto.py imports)
+BARN_ROOT = os.path.dirname(os.path.dirname(__file__))
 
-def print_green(text):
-    print(f"{GREEN}{text}{RESET}")
-
-def print_yellow(text):
-    print(f"{YELLOW}{text}{RESET}")
-
-def run_nmap(target, intensity="-sT -sV --top-ports 1000 -Pn -T4 --reason --verbose"):
-    print_green(f"[+] Firing live Nmap recon on {target}...")
-    cmd = ["nmap", "-oX", "-", intensity, target]
-    print_yellow(f"[DEBUG] Running: {' '.join(cmd)}")  # <-- exact command dump
-    result = subprocess.run(cmd, capture_output=True, text=True)
-    
-    if result.returncode != 0 or "Scantype not supported" in result.stderr:
-        print("[-] Nmap FAILED HARD – raw error dump:")
-        print(result.stderr.strip() or "No stderr – possible Npcap not loaded or not Admin")
-        print("\n[+] Raw stdout preview:")
-        print(result.stdout[:1000] if result.stdout else "No output")
-        return None
-    
+def run_nmap(target, args=' -sV -O --top-ports 1000 '):
+    cmd = f'nmap{args}{target}'
     try:
-        root = ET.fromstring(result.stdout)
-    except Exception as e:
-        print(f"[-] XML parse failed: {e}")
-        print(result.stdout[:1000])
-        return None
-    
-    # ... keep ALL your existing parsing code below unchanged ...
-    host = root.find(".//host") or root.find("host")
-    if host is None:
-        return {"host": target, "status": "down"}
-    
-    ports = []
-    services = {}
-    
-    for port in host.findall(".//port"):
-        state_elem = port.find("state")
-        if state_elem is not None and state_elem.get("state") == "open":
-            portid = port.get("portid")
-            ports.append(int(portid))
-            service = port.find("service")
-            if service is not None:
-                name = service.get("name", "unknown")
-                product = service.get("product", "")
-                version = service.get("version", "")
-                services[portid] = f"{name} {product} {version}".strip()
-    
-    scan_data = {
-        "host": target,
-        "status": "up",
-        "ports": ports,
-        "services": services,
-        "os": "OS detection skipped on Windows – scapy Week 3"
+        result = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=300)
+        return result.stdout + result.stderr
+    except Exception as e: return f"Recon fail: {e}"
+
+def parse_to_json(nmap_out):
+    lines = nmap_out.split('\n')
+    ports = [line for line in lines if '/tcp' in line or '/udp' in line]
+    vulns = [p for p in ports if 'open' in p.lower()]
+    report = {
+        "timestamp": datetime.now().isoformat(),
+        "target": sys.argv[2] if len(sys.argv)>2 else "localhost",
+        "open_ports": vulns[:10],
+        "full_output": nmap_out[-500:]
     }
-    print_green("[+] Recon complete – live versions forged.")
-    return scan_data
+    return json.dumps(report, indent=2)
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="ShadowForge Recon: Scan like a Viking raid.")
+    parser.add_argument("target", help="IP/hostname to sweep (e.g., 192.168.1.1)")
+    args = parser.parse_args()
+    
+    print("Forging recon in modules barn...")
+    output = run_nmap(args.target)
+    json_report = parse_to_json(output)
+    
+    report_path = os.path.join(BARN_ROOT, "recon_report.json")
+    with open(report_path, "w") as f: f.write(json_report)
+    print(f"Recon dropped: {len(json_report)} bytes. Check {report_path}")

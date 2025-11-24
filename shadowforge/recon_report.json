@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-11-23T19:59:25.513032",
+  "timestamp": "2025-11-23T20:29:53.852909",
   "target": "192.168.1.1",
   "status": "stealth_vein_complete",
   "stealth_ping": "hit",
@@ -38,5 +38,5 @@
     }
   },
   "vuln_seeds": [],
-  "full_output": "Starting Nmap 7.98 ( https://nmap.org ) at 2025-11-23 19:59 -0700\nNmap scan report for 192.168.1.1\nHost is up (0.00096s latency).\nNot shown: 93 closed tcp ports (reset)\nPORT      STATE    SERVICE    VERSION\n53/tcp    open     tcpwrapped\n80/tcp    open     tcpwrapped\n139/tcp   open     tcpwrapped\n443/tcp   filtered https\n445/tcp   open     tcpwrapped\n10000/tcp open     tcpwrapped\n49152/tcp open     tcpwrapped\nMAC Address: 60:38:E0:8C:01:3B (Belkin International)\n\nService detection performed. Please report any incorrect results at https://nmap.org/submit/ .\nNmap done: 1 IP address (1 host up) scanned in 3.99 seconds\n"
+  "full_output": "Starting Nmap 7.98 ( https://nmap.org ) at 2025-11-23 20:29 -0700\nNmap scan report for 192.168.1.1\nHost is up (0.00075s latency).\nNot shown: 93 closed tcp ports (reset)\nPORT      STATE    SERVICE    VERSION\n53/tcp    open     tcpwrapped\n80/tcp    open     tcpwrapped\n139/tcp   open     tcpwrapped\n443/tcp   filtered https\n445/tcp   open     tcpwrapped\n10000/tcp open     tcpwrapped\n49152/tcp open     tcpwrapped\nMAC Address: 60:38:E0:8C:01:3B (Belkin International)\n\nService detection performed. Please report any incorrect results at https://nmap.org/submit/ .\nNmap done: 1 IP address (1 host up) scanned in 4.00 seconds\n"
 }
