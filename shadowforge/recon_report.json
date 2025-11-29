@@ -1,42 +1,29 @@
 {
-  "timestamp": "2025-11-23T20:29:53.852909",
-  "target": "192.168.1.1",
+  "timestamp": "2025-11-23T22:26:10.130198",
+  "target": "127.0.0.1",
   "status": "stealth_vein_complete",
   "stealth_ping": "hit",
   "open_ports": [
-    "53/tcp    open     tcpwrapped",
-    "80/tcp    open     tcpwrapped",
-    "139/tcp   open     tcpwrapped",
-    "445/tcp   open     tcpwrapped",
-    "10000/tcp open     tcpwrapped",
-    "49152/tcp open     tcpwrapped"
+    "135/tcp  open     msrpc         Microsoft Windows RPC",
+    "445/tcp  open     microsoft-ds?",
+    "5357/tcp open     http          Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)"
   ],
   "parsed_ports": {
-    "53": {
-      "service": "tcpwrapped",
-      "version": "unknown"
-    },
-    "80": {
-      "service": "tcpwrapped",
-      "version": "unknown"
-    },
-    "139": {
-      "service": "tcpwrapped",
-      "version": "unknown"
+    "135": {
+      "service": "msrpc",
+      "version": "Microsoft Windows RPC"
     },
     "445": {
-      "service": "tcpwrapped",
+      "service": "microsoft-ds?",
       "version": "unknown"
     },
-    "10000": {
-      "service": "tcpwrapped",
-      "version": "unknown"
-    },
-    "49152": {
-      "service": "tcpwrapped",
-      "version": "unknown"
+    "5357": {
+      "service": "http",
+      "version": "Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)"
     }
   },
-  "vuln_seeds": [],
-  "full_output": "Starting Nmap 7.98 ( https://nmap.org ) at 2025-11-23 20:29 -0700\nNmap scan report for 192.168.1.1\nHost is up (0.00075s latency).\nNot shown: 93 closed tcp ports (reset)\nPORT      STATE    SERVICE    VERSION\n53/tcp    open     tcpwrapped\n80/tcp    open     tcpwrapped\n139/tcp   open     tcpwrapped\n443/tcp   filtered https\n445/tcp   open     tcpwrapped\n10000/tcp open     tcpwrapped\n49152/tcp open     tcpwrapped\nMAC Address: 60:38:E0:8C:01:3B (Belkin International)\n\nService detection performed. Please report any incorrect results at https://nmap.org/submit/ .\nNmap done: 1 IP address (1 host up) scanned in 4.00 seconds\n"
+  "vuln_seeds": [
+    "5357"
+  ],
+  "full_output": "Starting Nmap 7.98 ( https://nmap.org ) at 2025-11-23 22:25 -0700\nNmap scan report for localhost (127.0.0.1)\nHost is up (0.000091s latency).\nNot shown: 96 closed tcp ports (reset)\nPORT     STATE    SERVICE       VERSION\n53/tcp   filtered domain\n135/tcp  open     msrpc         Microsoft Windows RPC\n445/tcp  open     microsoft-ds?\n5357/tcp open     http          Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)\nService Info: OS: Windows; CPE: cpe:/o:microsoft:windows\n\nService detection performed. Please report any incorrect results at https://nmap.org/submit/ .\nNmap done: 1 IP address (1 host up) scanned in 12.54 seconds\n"
 }
