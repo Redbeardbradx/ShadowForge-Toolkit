@@ -1,6 +1,6 @@
- # Dynamic hauls – no vault bloat
+"# Dynamic hauls - no vault bloat"
 reports/*.json
-# recon_report.json  # Uncomment to track; ignore for fresh collab runs
+ # Uncomment to track; ignore for fresh collab runs
 
 # Sweat trails
 *.log
