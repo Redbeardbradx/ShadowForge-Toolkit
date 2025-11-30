@@ -1,4 +1,4 @@
-# src/shadowforge/shield/proxy.py
+from typing import Optional, Dict
 import requests
 from typing import Optional
 try:
@@ -32,7 +32,7 @@ def tor_session(timeout: int = 30) -> requests.Session:
 
     return session
 
-def anon_request(url: str, session: Optional[requests.Session] = None) -> dict:
+def anon_request(url: str, session: Optional[requests.Session] = None) -> Dict:
     """Veil a GET thru TOR. Returns JSON or error."""
     if session is None:
         session = tor_session()

@@ -1,7 +1,8 @@
 import argparse
 import json
+from typing import Optional
 from .modules.recon import run_nmap_scan
-from .modules.payloads import gen_for_port
+from .modules.payloads import gen_reverse_shell, gen_for_port
 from .modules.auto import chain_assault
 from .modules.shield.proxy import tor_session
 
@@ -22,6 +23,9 @@ def cli_entry():
     payload_parser.add_argument('--target', required=True)
     payload_parser.add_argument('--port', type=int, default=4444)
     payload_parser.add_argument('--type', choices=['bash', 'python'], default='bash')
+    # Audit sub
+    audit_parser = subparsers.add_parser('audit', help='Rig lockdown sweep')
+    audit_parser.add_argument('--level', choices=['quick', 'full'], default='quick')
     args = parser.parse_args()
     if args.command == 'recon':
         session = tor_session() if args.proxy == 'tor' else None
@@ -32,9 +36,13 @@ def cli_entry():
         for slice in chain_assault(args.target, args.dry_run, args.proxy):
             print(json.dumps(slice, indent=2))
     elif args.command == 'payload':
-        from .modules.payloads import gen_reverse_shell
         shell_data = gen_reverse_shell(args.target, args.port, args.type)
         print(json.dumps(shell_data, indent=2))
+    elif args.command == 'audit':
+        from .modules.security_audit import run_audit, log_audit
+        results = run_audit(args.level)
+        print(json.dumps(results, indent=2))
+        print(log_audit(results))
     return 0
 
-# Save. Test fallback: python -m shadowforge auto --target 192.168.1.1 --dry-run  # Full: {"phase":"recon_complete","data":{"ports_open":4}} → laced yields (CVE-2024-6387 SSH) → payloads (bash encoded)
+# Save. Verify: Get-Content src\shadowforge\main.py | Select -LineNumber -Line 25-35  # Echo indented block—no orphan if

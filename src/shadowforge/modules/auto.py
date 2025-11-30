@@ -1,19 +1,20 @@
-# src/shadowforge/modules/auto.py
 import json
-from typing import Generator, Dict, Any
+from typing import Generator, Dict, Any, Optional
 from .recon import run_nmap_scan
 from .payloads import gen_for_port
+from .shield.proxy import tor_session
 
-def chain_assault(target: str, dry_run: bool = True) -> Generator[Dict[str, Any], None, None]:
+def chain_assault(target: str, dry_run: bool = True, proxy: Optional[str] = None) -> Generator[Dict[str, Any], None, None]:
     """
     Auto beast: Recon raid → Payload forge per port. Ethical: dry_run=True (echo only—no drops).
     Yields dicts: recon_slice + payload per service.
     """
     if dry_run:
-        print("[yellow]Dry run mode: Echoing blueprints—no shells dropped.[/yellow]")  # Rich tease
+        print("[yellow]Dry run mode: Echoing blueprints—no shells dropped.[/yellow]")
 
     # Phase 1: Recon eye
-    recon_data = run_nmap_scan(target)
+    session = tor_session() if proxy == 'tor' else None
+    recon_data = run_nmap_scan(target, session)
     if "error" in recon_data:
         yield {"phase": "recon", "error": recon_data["error"]}
         return
