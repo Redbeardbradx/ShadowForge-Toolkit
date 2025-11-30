@@ -1,22 +1,40 @@
-# In main.py subparsers (add to recon_parser):
-recon_parser.add_argument('--proxy', choices=['tor'], help='Veil thru TOR')
+import argparse
+import json
+from .modules.recon import run_nmap_scan
+from .modules.payloads import gen_for_port
+from .modules.auto import chain_assault
+from .modules.shield.proxy import tor_session
 
-# In if __name__ for recon:
-if args.command == 'recon':
-    from .modules.recon import run_nmap_scan
-    from .modules.shield.proxy import tor_session  # Only if tor
-    session = tor_session() if args.proxy == 'tor' else None
-    scan_data = run_nmap_scan(args.target, session=session)  # Pass session to recon
+def cli_entry():
+    parser = argparse.ArgumentParser(description='ShadowForge: Ethical pentest forge.')
+    subparsers = parser.add_subparsers(dest='command')
+    # Recon sub
+    recon_parser = subparsers.add_parser('recon', help='Nmap + CVE recon')
+    recon_parser.add_argument('--target', required=True)
+    recon_parser.add_argument('--proxy', choices=['tor'], default=None)
+    # Auto sub
+    auto_parser = subparsers.add_parser('auto', help='Chain recon → payloads')
+    auto_parser.add_argument('--target', required=True)
+    auto_parser.add_argument('--dry-run', action='store_true', default=True)
+    auto_parser.add_argument('--proxy', choices=['tor'], default=None)
+    # Payload sub
+    payload_parser = subparsers.add_parser('payload', help='Gen shell')
+    payload_parser.add_argument('--target', required=True)
+    payload_parser.add_argument('--port', type=int, default=4444)
+    payload_parser.add_argument('--type', choices=['bash', 'python'], default='bash')
+    args = parser.parse_args()
+    if args.command == 'recon':
+        session = tor_session() if args.proxy == 'tor' else None
+        data = run_nmap_scan(args.target, session)
+        print(json.dumps(data, indent=2))
+    elif args.command == 'auto':
+        session = tor_session() if args.proxy == 'tor' else None
+        for slice in chain_assault(args.target, args.dry_run, args.proxy):
+            print(json.dumps(slice, indent=2))
+    elif args.command == 'payload':
+        from .modules.payloads import gen_reverse_shell
+        shell_data = gen_reverse_shell(args.target, args.port, args.type)
+        print(json.dumps(shell_data, indent=2))
+    return 0
 
-# Update recon.py run_nmap_scan (add param):
-def run_nmap_scan(target: str, session: Optional[requests.Session] = None) -> Dict[str, Any]:
-    # ... existing ...
-    # In geocode: if session: geo_resp = session.get(f"http://ipinfo.io/{target}/json", timeout=10)
-    # else: geo_resp = requests.get(...)
-    # ... rest unchanged
-
-# At file bottom, before if __name__:
-def cli_entry(): full argparse + handlers (subparsers for recon/auto, if command == 'auto': from .modules.auto import chain_assault; for slice in chain_assault(target, dry_run=True, proxy=args.proxy): print(json.dumps(slice)); return 0  # Similar for recon/payload; import json, argparse
-
-if __name__ == "__main__":
-    cli_entry()
+# Save. Test fallback: python -m shadowforge auto --target 192.168.1.1 --dry-run  # Full: {"phase":"recon_complete","data":{"ports_open":4}} → laced yields (CVE-2024-6387 SSH) → payloads (bash encoded)
