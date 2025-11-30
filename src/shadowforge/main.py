@@ -16,12 +16,7 @@ def run_nmap_scan(target: str, session: Optional[requests.Session] = None) -> Di
     # ... rest unchanged
 
 # At file bottom, before if __name__:
-def cli_entry():
-    parser = argparse.ArgumentParser(description='ShadowForge: Ethical pentest forge.')
-    # ... your full argparse setup here (subparsers for recon, etc.)
-    args = parser.parse_args()
-    # ... your command handlers
-    # (Move if __name__ logic into here if needed—keeps bin pure)
+def cli_entry(): full argparse + handlers (subparsers for recon/auto, if command == 'auto': from .modules.auto import chain_assault; for slice in chain_assault(target, dry_run=True, proxy=args.proxy): print(json.dumps(slice)); return 0  # Similar for recon/payload; import json, argparse
 
 if __name__ == "__main__":
     cli_entry()
