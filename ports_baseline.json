@@ -1,917 +1,182 @@
-[
+﻿[
     {
-        "LocalPort":  2543,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
+        "LocalAddress":  "::",
         "LocalPort":  49683,
-        "RemotePort":  0,
-        "State":  2
+        "OwningProcess":  1416
     },
     {
+        "LocalAddress":  "::1",
         "LocalPort":  49681,
-        "RemotePort":  0,
-        "State":  2
+        "OwningProcess":  5264
     },
     {
+        "LocalAddress":  "::",
         "LocalPort":  49678,
-        "RemotePort":  0,
-        "State":  2
+        "OwningProcess":  5884
     },
     {
+        "LocalAddress":  "::",
         "LocalPort":  49667,
-        "RemotePort":  0,
-        "State":  2
+        "OwningProcess":  3208
     },
     {
+        "LocalAddress":  "::",
         "LocalPort":  49666,
-        "RemotePort":  0,
-        "State":  2
+        "OwningProcess":  2176
     },
     {
+        "LocalAddress":  "::",
         "LocalPort":  49665,
-        "RemotePort":  0,
-        "State":  2
+        "OwningProcess":  1336
     },
     {
+        "LocalAddress":  "::",
         "LocalPort":  49664,
-        "RemotePort":  0,
-        "State":  2
+        "OwningProcess":  1444
     },
     {
+        "LocalAddress":  "::1",
         "LocalPort":  42050,
-        "RemotePort":  0,
-        "State":  2
+        "OwningProcess":  24796
     },
     {
+        "LocalAddress":  "::",
         "LocalPort":  7680,
-        "RemotePort":  0,
-        "State":  2
+        "OwningProcess":  14928
     },
     {
+        "LocalAddress":  "::",
         "LocalPort":  5357,
-        "RemotePort":  0,
-        "State":  2
+        "OwningProcess":  4
     },
     {
+        "LocalAddress":  "::",
         "LocalPort":  445,
-        "RemotePort":  0,
-        "State":  2
+        "OwningProcess":  4
     },
     {
+        "LocalAddress":  "::",
         "LocalPort":  135,
-        "RemotePort":  0,
-        "State":  2
+        "OwningProcess":  1796
     },
     {
-        "LocalPort":  65025,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  64383,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  64382,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  64380,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  64371,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  63445,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  62706,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  62070,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  61870,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  61783,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  61130,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  60674,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  60673,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  60672,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  59024,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  59002,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  58824,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  58771,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  57999,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  55310,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  55196,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  54198,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  51032,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  51019,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  49849,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  49842,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  49839,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  49711,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  49710,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  49697,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  49224,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  48416,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  48415,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  48283,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  48218,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  46930,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  46929,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  46928,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  46927,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  46926,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  46925,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  46919,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  46283,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  44368,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  44011,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  43469,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  42795,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  41994,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  41028,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  39748,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  39745,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  39741,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  39289,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  36200,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  35525,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  32716,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  31473,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  30517,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  29390,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  27685,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  25098,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  25097,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  24602,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  24056,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  23384,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  23164,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  23071,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  22973,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  21948,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  21812,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  21809,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  21687,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  20407,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  19325,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  19323,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  19314,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  19312,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  19310,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  16187,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  15506,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  13205,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  13204,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  12510,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  12509,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  12045,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  8275,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  8274,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  8267,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  8261,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  8247,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  8237,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  8235,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  8234,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  8233,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  8232,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  8231,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  8230,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  8229,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  7336,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  6233,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  6108,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  5657,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  5342,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  5338,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  5337,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  4866,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  4865,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  4861,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  4621,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  4426,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  4421,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  4413,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  4302,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  3981,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  3624,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  2651,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  2573,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  2572,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  2565,
-        "RemotePort":  0,
-        "State":  100
-    },
-    {
-        "LocalPort":  64383,
-        "RemotePort":  443,
-        "State":  5
-    },
-    {
-        "LocalPort":  64382,
-        "RemotePort":  443,
-        "State":  5
-    },
-    {
-        "LocalPort":  64381,
-        "RemotePort":  443,
-        "State":  11
-    },
-    {
-        "LocalPort":  64380,
-        "RemotePort":  443,
-        "State":  5
-    },
-    {
-        "LocalPort":  64371,
-        "RemotePort":  443,
-        "State":  5
-    },
-    {
-        "LocalPort":  55310,
-        "RemotePort":  443,
-        "State":  5
-    },
-    {
+        "LocalAddress":  "127.0.0.1",
         "LocalPort":  51100,
-        "RemotePort":  0,
-        "State":  2
+        "OwningProcess":  2340
     },
     {
-        "LocalPort":  51032,
-        "RemotePort":  443,
-        "State":  5
-    },
-    {
+        "LocalAddress":  "127.0.0.1",
         "LocalPort":  50100,
-        "RemotePort":  0,
-        "State":  2
+        "OwningProcess":  6096
     },
     {
-        "LocalPort":  50100,
-        "RemotePort":  49710,
-        "State":  5
-    },
-    {
-        "LocalPort":  49711,
-        "RemotePort":  9012,
-        "State":  5
-    },
-    {
-        "LocalPort":  49710,
-        "RemotePort":  50100,
-        "State":  5
-    },
-    {
-        "LocalPort":  49697,
-        "RemotePort":  13030,
-        "State":  5
-    },
-    {
+        "LocalAddress":  "0.0.0.0",
         "LocalPort":  49683,
-        "RemotePort":  0,
-        "State":  2
+        "OwningProcess":  1416
     },
     {
+        "LocalAddress":  "0.0.0.0",
         "LocalPort":  49678,
-        "RemotePort":  0,
-        "State":  2
+        "OwningProcess":  5884
     },
     {
+        "LocalAddress":  "0.0.0.0",
         "LocalPort":  49667,
-        "RemotePort":  0,
-        "State":  2
+        "OwningProcess":  3208
     },
     {
+        "LocalAddress":  "0.0.0.0",
         "LocalPort":  49666,
-        "RemotePort":  0,
-        "State":  2
+        "OwningProcess":  2176
     },
     {
+        "LocalAddress":  "0.0.0.0",
         "LocalPort":  49665,
-        "RemotePort":  0,
-        "State":  2
+        "OwningProcess":  1336
     },
     {
+        "LocalAddress":  "0.0.0.0",
         "LocalPort":  49664,
-        "RemotePort":  0,
-        "State":  2
+        "OwningProcess":  1444
     },
     {
-        "LocalPort":  46919,
-        "RemotePort":  443,
-        "State":  5
-    },
-    {
+        "LocalAddress":  "127.0.0.1",
         "LocalPort":  27339,
-        "RemotePort":  0,
-        "State":  2
+        "OwningProcess":  4
     },
     {
-        "LocalPort":  23071,
-        "RemotePort":  443,
-        "State":  5
-    },
-    {
-        "LocalPort":  22973,
-        "RemotePort":  443,
-        "State":  5
-    },
-    {
+        "LocalAddress":  "127.0.0.1",
         "LocalPort":  22112,
-        "RemotePort":  0,
-        "State":  2
+        "OwningProcess":  5240
     },
     {
-        "LocalPort":  21812,
-        "RemotePort":  1042,
-        "State":  5
-    },
-    {
-        "LocalPort":  21809,
-        "RemotePort":  1042,
-        "State":  5
-    },
-    {
-        "LocalPort":  19314,
-        "RemotePort":  5223,
-        "State":  5
-    },
-    {
+        "LocalAddress":  "127.0.0.1",
         "LocalPort":  13032,
-        "RemotePort":  0,
-        "State":  2
+        "OwningProcess":  6096
     },
     {
+        "LocalAddress":  "127.0.0.1",
         "LocalPort":  13031,
-        "RemotePort":  0,
-        "State":  2
+        "OwningProcess":  6096
     },
     {
+        "LocalAddress":  "127.0.0.1",
         "LocalPort":  13030,
-        "RemotePort":  0,
-        "State":  2
+        "OwningProcess":  5240
     },
     {
-        "LocalPort":  13030,
-        "RemotePort":  49697,
-        "State":  5
-    },
-    {
+        "LocalAddress":  "127.0.0.1",
         "LocalPort":  9014,
-        "RemotePort":  0,
-        "State":  2
+        "OwningProcess":  9412
     },
     {
+        "LocalAddress":  "127.0.0.1",
         "LocalPort":  9013,
-        "RemotePort":  0,
-        "State":  2
+        "OwningProcess":  9028
     },
     {
+        "LocalAddress":  "127.0.0.1",
         "LocalPort":  9012,
-        "RemotePort":  49711,
-        "State":  5
+        "OwningProcess":  9028
     },
     {
-        "LocalPort":  9012,
-        "RemotePort":  0,
-        "State":  2
-    },
-    {
+        "LocalAddress":  "127.0.0.1",
         "LocalPort":  6850,
-        "RemotePort":  0,
-        "State":  2
+        "OwningProcess":  33992
     },
     {
-        "LocalPort":  6850,
-        "RemotePort":  4302,
-        "State":  5
-    },
-    {
+        "LocalAddress":  "0.0.0.0",
         "LocalPort":  5040,
-        "RemotePort":  0,
-        "State":  2
+        "OwningProcess":  5216
     },
     {
-        "LocalPort":  4426,
-        "RemotePort":  443,
-        "State":  5
-    },
-    {
-        "LocalPort":  4413,
-        "RemotePort":  65432,
-        "State":  5
-    },
-    {
-        "LocalPort":  4302,
-        "RemotePort":  6850,
-        "State":  5
-    },
-    {
-        "LocalPort":  2651,
-        "RemotePort":  443,
-        "State":  5
-    },
-    {
-        "LocalPort":  2543,
-        "RemotePort":  80,
-        "State":  5
-    },
-    {
+        "LocalAddress":  "127.0.0.1",
         "LocalPort":  1043,
-        "RemotePort":  0,
-        "State":  2
+        "OwningProcess":  11392
     },
     {
+        "LocalAddress":  "127.0.0.1",
         "LocalPort":  1042,
-        "RemotePort":  21809,
-        "State":  5
+        "OwningProcess":  11392
     },
     {
-        "LocalPort":  1042,
-        "RemotePort":  0,
-        "State":  2
-    },
-    {
-        "LocalPort":  1042,
-        "RemotePort":  21812,
-        "State":  5
-    },
-    {
+        "LocalAddress":  "192.168.1.115",
         "LocalPort":  139,
-        "RemotePort":  0,
-        "State":  2
+        "OwningProcess":  4
     },
     {
+        "LocalAddress":  "172.20.176.1",
         "LocalPort":  139,
-        "RemotePort":  0,
-        "State":  2
+        "OwningProcess":  4
     },
     {
+        "LocalAddress":  "10.2.0.2",
         "LocalPort":  139,
-        "RemotePort":  0,
-        "State":  2
+        "OwningProcess":  4
     },
     {
+        "LocalAddress":  "0.0.0.0",
         "LocalPort":  135,
-        "RemotePort":  0,
-        "State":  2
+        "OwningProcess":  1796
     }
 ]
