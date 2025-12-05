@@ -1,33 +1,26 @@
-import nvdlib
-from typing import List, Dict
+#!/usr/bin/env python3
+import json
+import argparse
+import requests
+from .utils import run_nmap  # Shared utils for loop break
+def parse_vulns(target, api_key=None):
+    scan = run_nmap(target)
+    open_ports = [line for line in scan['output'].split('\n') if '/tcp open' in line]
+    vulns = []
+    for port_line in open_ports:
+        port = port_line.split('/')[0]
+        # NIST CVE tease (free API—no key needed for basic)
+        r = requests.get(f'https://services.nvd.nist.gov/rest/json/cves/2.0?keywordSearch={port}')
+        if r.status_code == 200:
+            data = r.json()
+            cves = [cve['cve']['id'] for cve in data['vulnerabilities'][:3]]
+            vulns.append({'port': port, 'cves': cves})
+    return {'target': target, 'vulns': vulns, 'scan': scan}
 
-def match_cves(version: str) -> List[Dict]:
-    """
-    Raid NVD for CVEs on service version. Ethical: OSINT only—suggest, don't exploit.
-    Returns list of dicts: {'id': 'CVE-2024-6387', 'severity': 'HIGH', 'description': 'snippet'}.
-    """
-    if not version:
-        return []
-    try:
-        results = nvdlib.searchCVE(
-            keywordSearch=str(version),
-            cvssV3Severity=['HIGH', 'CRITICAL'],
-            limit=5
-        )
-        cves = []
-        for cve in results:
-            cves.append({
-                'id': cve.id,
-                'severity': cve.score[2] if cve.score else 'UNKNOWN',
-                'description': cve.descriptions[0].value[:100] + '...' if cve.descriptions else 'No desc'
-            })
-        return cves
-    except Exception as e:
-        print(f"[red]NVD hunt failed: {e}—check net or rate limit.[/red]")
-        return []
-
-def enrich_services(services: List[Dict]) -> List[Dict]:
-    """Chain: Add CVEs to each service."""
-    for svc in services:
-        svc["potential_cves"] = match_cves(svc.get("version", ""))
-    return services
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='ShadowForge Vulns Parse')
+    parser.add_argument('--target', required=True)
+    args = parser.parse_args()
+    
+    result = parse_vulns(args.target)
+    print(json.dumps(result, indent=2))

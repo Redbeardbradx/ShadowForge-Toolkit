@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 import subprocess
 import json
 from typing import Dict
@@ -8,7 +8,7 @@ def run_audit(level: str = 'quick') -> Dict:
     Automate rig lockdown. Levels: 'quick' (5min), 'full' (15min). Ethical: Local only.
     Returns JSON: {'updates': 3, 'antivirus': 'ON', 'open_ports': [80, 443], 'risks': ['RDP open']}.
     """
-    audit = {'level': level, 'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S').stdout.strip(), 'risks': []}
+    audit = {'level': level, 'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S'), 'risks': []}
     try:
         # Updates check
         result = subprocess.run(['wuauclt', '/detectnow'], capture_output=True, text=True)

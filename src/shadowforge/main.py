@@ -1,48 +1,81 @@
+#!/usr/bin/env python3
+# ShadowForge: Core CLI – Recon raids + shield seals. Utah Viking edition. Windows PS primed.
 import argparse
-import json
-from typing import Optional
-from .modules.recon import run_nmap_scan
-from .modules.payloads import gen_reverse_shell, gen_for_port
-from .modules.auto import chain_assault
-from .modules.shield.proxy import tor_session
+import subprocess
+import sys
+import os
+import argparse  # For mock args
 
-def cli_entry():
-    parser = argparse.ArgumentParser(description='ShadowForge: Ethical pentest forge.')
-    subparsers = parser.add_subparsers(dest='command')
-    # Recon sub
-    recon_parser = subparsers.add_parser('recon', help='Nmap + CVE recon')
-    recon_parser.add_argument('--target', required=True)
-    recon_parser.add_argument('--proxy', choices=['tor'], default=None)
-    # Auto sub
-    auto_parser = subparsers.add_parser('auto', help='Chain recon → payloads')
-    auto_parser.add_argument('--target', required=True)
-    auto_parser.add_argument('--dry-run', action='store_true', default=True)
-    auto_parser.add_argument('--proxy', choices=['tor'], default=None)
-    # Payload sub
-    payload_parser = subparsers.add_parser('payload', help='Gen shell')
-    payload_parser.add_argument('--target', required=True)
-    payload_parser.add_argument('--port', type=int, default=4444)
-    payload_parser.add_argument('--type', choices=['bash', 'python'], default='bash')
-    # Audit sub
-    audit_parser = subparsers.add_parser('audit', help='Rig lockdown sweep')
-    audit_parser.add_argument('--level', choices=['quick', 'full'], default='quick')
+def recon_scan(target):
+    """Recon: Nmap sweep (Drac bash pivot—direct for PS). OSINT stub inbound."""
+    print(f"\033[95m[RECON RAID]\033[0m Hammering {target}—services spill like Viking loot.")
+    try:
+        # Nmap core—Windows fire
+        nmap_cmd = ['nmap', '-sV', '--open', target]  # --open for live ports only
+        nmap_result = subprocess.run(nmap_cmd, capture_output=True, text=True, timeout=45)
+        if nmap_result.returncode == 0:
+            print(nmap_result.stdout)
+            print(f"\033[92m[INTEL DROP]\033[0m Services mapped—{len([line for line in nmap_result.stdout.splitlines() if 'open' in line.lower()])} gates open. Vulns next.")
+        else:
+            print(f"\033[91m[NMAP FAIL]\033[0m {nmap_result.stderr}. Strap nmap: winget install Insecure.Nmap.")
+        
+        # Drac Pivot: Bash stub—if Linux VM, subprocess.call(['./Dracnmap/Dracnmap.sh', target]); else, nmap echo.
+        if os.name == 'nt':  # Windows detect
+            print("\033[93m[DRAC PIVOT]\033[0m Bash beast sleeps on PS—raid VM (Kali VBox) or bolt Recon-NG: pip install recon-ng.")
+        else:
+            drac_path = os.path.join(os.getcwd(), 'Dracnmap', 'Dracnmap.sh')
+            if os.path.exists(drac_path):
+                subprocess.run(['bash', drac_path, target], timeout=60)
+            else:
+                print("\033[93m[WARNING]\033[0m Drac dir MIA—git clone https://github.com/screetsec/Dracnmap; chmod +x Dracnmap.sh.")
+        
+        # Recon-NG Stub (OSINT bolt—pip if not loaded)
+        try:
+            recon_ng_result = subprocess.run(['recon-ng', '-c', f'modules load recon/domains-hosts/shodan_hostname; options set SOURCE {target}; run'], 
+                                             capture_output=True, text=True, timeout=30, shell=True)
+            if recon_ng_result.returncode == 0:
+                print(f"\033[93m[OSINT GLEAN]\033[0m {recon_ng_result.stdout[:300]}...")  # Snippet
+        except FileNotFoundError:
+            print("\033[93m[RECON-NG ARMORY]\033[0m Not strapped—pip install recon-ng; recon-ng -ir (install modules).")
+            
+    except FileNotFoundError:
+        print("\033[93m[NMAP ARMORY]\033[0m Nmap ghosted—winget install Insecure.Nmap; PATH refresh.")
+    except subprocess.TimeoutExpired:
+        print("\033[93m[TIMEOUT]\033[0m Target's a wall—add -T4 for speed.")
+
+def shield_scan(args):
+    """Shield import & call."""
+    try:
+        import shield
+        shield.main(args)  # Your shield.py main() flex
+    except ImportError:
+        print("\033[91m[SHIELD GHOST]\033[0m shield.py MIA or no main()—forge it from Day 4 drop.")
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="ShadowForge: Recon, shield, auto—dominate.")
+    subparsers = parser.add_subparsers(dest='command', help='Commands: recon | shield | auto')
+
+    recon_parser = subparsers.add_parser('recon', help='Port/OSINT raid')
+    recon_parser.add_argument('--target', required=True, help='IP/hostname probe')
+
+    shield_parser = subparsers.add_parser('shield', help='Proc/port seal')
+    shield_parser.add_argument('--target', default='127.0.0.1', nargs='?', help='IP seal')
+
+    auto_parser = subparsers.add_parser('auto', help='Chain raid → seal')
+    auto_parser.add_argument('--target', required=True, help='Full auto target')
+
     args = parser.parse_args()
-    if args.command == 'recon':
-        session = tor_session() if args.proxy == 'tor' else None
-        data = run_nmap_scan(args.target, session)
-        print(json.dumps(data, indent=2))
-    elif args.command == 'auto':
-        session = tor_session() if args.proxy == 'tor' else None
-        for slice in chain_assault(args.target, args.dry_run, args.proxy):
-            print(json.dumps(slice, indent=2))
-    elif args.command == 'payload':
-        shell_data = gen_reverse_shell(args.target, args.port, args.type)
-        print(json.dumps(shell_data, indent=2))
-    elif args.command == 'audit':
-        from .modules.security_audit import run_audit, log_audit
-        results = run_audit(args.level)
-        print(json.dumps(results, indent=2))
-        print(log_audit(results))
-    return 0
 
-# Save. Verify: Get-Content src\shadowforge\main.py | Select -LineNumber -Line 25-35  # Echo indented block—no orphan if
+    if args.command == 'recon':
+        recon_scan(args.target)
+    elif args.command == 'shield':
+        shield_scan(args)
+    elif args.command == 'auto':
+        recon_scan(args.target)
+        shield_args = argparse.Namespace(target=args.target)
+        shield_scan(shield_args)
+    else:
+        parser.print_help()
+        sys.exit(1)
+
+    print("\033[92m[FORGE WIN]\033[0m Cycle crushed—log the loot, brother.")

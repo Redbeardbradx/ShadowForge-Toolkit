@@ -4,7 +4,7 @@ import json
 import re
 import requests
 from typing import Dict, Any
-from .vulns import enrich_services
+from .utils import enrich_services  # Shared utils for loop break
 
 def run_nmap_scan(target: str, session: Optional[requests.Session] = None) -> Dict[str, Any]:
     """
@@ -20,7 +20,7 @@ def run_nmap_scan(target: str, session: Optional[requests.Session] = None) -> Di
             timeout=120  # 2min cap for slow targets
         )
         if result.returncode != 0:
-            return {"error": f"Nmap failed: {result.stderr}"}
+            return {'target': target, 'timestamp': '2025-11-30', 'output': result.stdout, 'enriched': enriched, 'errors':        result.stderr}
 
         # Parse stdout: Regex for ports/services (e.g., 80/tcp open http Apache 2.4.41)
         output = result.stdout

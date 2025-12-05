@@ -1,0 +1,6 @@
+workflows:
+  recon:
+    tools: [nmap, amass]
+    options:
+      nmap: {-sV: true, -O: true}
+      amass: {passive: true}

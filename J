@@ -1,0 +1,16 @@
+# Nmap 7.98 scan initiated Tue Dec  2 04:45:05 2025 as: "C:\\Program Files (x86)\\Nmap\\nmap.exe" -oJ ... - 127.0.0.1
+Failed to resolve "...".
+Failed to resolve "-".
+Bare '-': did you put a space between '--'?
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.00s latency).
+Not shown: 994 closed tcp ports (reset)
+PORT     STATE    SERVICE
+53/tcp   filtered domain
+135/tcp  open     msrpc
+445/tcp  open     microsoft-ds
+1042/tcp open     afrog
+1043/tcp open     boinc
+5357/tcp open     wsdapi
+
+# Nmap done at Tue Dec  2 04:45:11 2025 -- 1 IP address (1 host up) scanned in 5.37 seconds
