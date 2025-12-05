@@ -1,7 +1,0 @@
-workflows:
-  recon:
-    tools:
-    - nmap
-    - amass
-    - rustscan
-    - dracmap

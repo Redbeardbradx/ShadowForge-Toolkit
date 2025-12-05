@@ -1,9 +1,0 @@
->>> import json
->>> with open('yaml_patch.json', 'r') as f:
-...     patch = json.load(f)
-...
->>> print(patch)  # Quick check: {'workflows': {'fuzz': {...}, 'osint': {...}}}
-{'workflows': {'fuzz': {'tools': ['ffuf'], 'options': {'wordlist': 'C:\\kali\\usr\\share\\wordlists\\dirbuster\\directory-list-2.3-medium.txt', 'depth': 5, 'threads': 50}}, 'osint': {'tools': ['theHarvester', 'mosint'], 'targets': ['emails', 'phones'], 'options': {'theHarvester': {'-d': 'example.com', '-l': 500, '-b': 'google,linkedin'}}}}}
->>> osmedeus_base_yaml['workflows'].update(patch['workflows'])
->>> print(osmedeus_base_yaml)  # Merged glory: recon + fuzz + osint
-{'workflows': {'recon': {'tools': ['nmap', 'amass'], 'options': {...}}, 'fuzz': {...}, 'osint': {...}}}

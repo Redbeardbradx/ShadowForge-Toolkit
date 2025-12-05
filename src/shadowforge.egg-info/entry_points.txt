@@ -1,2 +1,0 @@
-[console_scripts]
-shadowforge = shadowforge.main:cli_entry
