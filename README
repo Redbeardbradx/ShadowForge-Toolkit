@@ -1,0 +1,12 @@
+@"
+# ShadowForge-Toolkit 🔥
+
+Ethical pentest lab toolkit – built by a Utah Viking in the shadows.  
+Modular recon → OSINT → payloads → defense. Lab-only, own your VMs.
+
+## Quick Install (30 seconds)
+```bash
+git clone https://github.com/Redbeardbradx/ShadowForge-Toolkit.git
+cd ShadowForge-Toolkit
+pip install -r requirements.txt
+python shadowforge.py --help
