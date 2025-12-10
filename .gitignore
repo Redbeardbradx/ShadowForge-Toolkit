@@ -1,129 +1,26 @@
-# ----------------------------
-# ShadowForge: Repo Clean Rules
-# ----------------------------
-
-### Python ###
+﻿# Python
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
-*.pdb
-*.egg-info/
-build/
-dist/
-pip-wheel-metadata/
-*.spec
+.env
 venv/
-env/
 .venv/
 
-### Virtual Environments ###
-env/
-ENV/
-.venv/
-.conda/
-.venv/
+# Logs & Temp
+logs/
+*.log
+~/
+*.tmp
 
-### Editor Junk ###
+# IDE / Windows junk
 .vscode/
 .idea/
-*.swp
-*.swo
-
-### OS Files ###
 .DS_Store
 Thumbs.db
-desktop.ini
+*.swp
 
-### Logs, Dumps, Cache ###
-*.log
-*.tmp
-*.bak
-*.old
-*.err
-*.out
-logs/
-log/
-forge.log
-hunt_log.txt
-sweep_log.json
-debug/
-cache/
-
-### Recon & Scan Outputs ###
-nmap.json
-nmap.xml
-*.gnmap
-*.nmap
-*.scan
-*.db
-*.sqlite
-*.sqlite3
-*.csv
-*.pcap
-*.pcapng
-report/
-reports/
-output/
-outputs/
-loot/
-loot_*/
-evidence/
-captures/
-
-### ShadowForge / Osmedeus / Recon Engines ###
-osmedeus/
-Dracnmap/
-workspace/
-workspaces/
-tmp/
-tmp_*/
-
-### Workflow & Config Dumps ###
-merged_workflow.yaml
-merge_workflows.py
-base_recon.yaml
-workflow_*.yaml
-*.workflow
-*.yml~
-*.yaml~
-
-### Toolkits / Script Payloads ###
-scripts.zip
-payloads/
-payloads.zip
-payload_cache/
-modules_cache/
-data/
-temp_data/
-working/
-
-### JSON Tracking / Temp Baselines ###
-ports_raw.txt
-test.json
-yaml_patch.json
-shadowforge.db
-*.baseline
-*.state
-
-### Secrets (Do NOT commit) ###
-.env
-.env.*
-secret.*
-apikey.txt
-*.key
-*.pem
-*.crt
-
-### Windows-specific trash ###
-ehthumbs.db
-$RECYCLE.BIN/
-
-### Misc ###
-*.zip
-*.7z
-*.rar
-*.tar
-*.tar.gz
-*.tmp
-*.bak
+# Build / Dist
+dist/
+build/
+*.egg-info/
