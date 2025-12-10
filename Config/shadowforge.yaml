@@ -1,0 +1,13 @@
+assistant:
+  persona_file: "config/persona.json"
+  model: "grok-latest"
+
+modules:
+  recon: "shadowforge/recon.py"
+  payloads: "shadowforge/payloads.py"
+  auto: "shadowforge/auto.py"
+  engine: "shadowforge/engine.py"
+
+defaults:
+  output: "cli"
+  log_level: "info"
