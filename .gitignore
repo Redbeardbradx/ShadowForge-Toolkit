@@ -26,3 +26,4 @@ build/
 *.egg-info/
 "masscan*.exe" 
 "masscan64.exe" 
+"masscan*.exe" 
