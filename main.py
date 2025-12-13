@@ -1,12 +1,33 @@
+#!/usr/bin/env python3
 import argparse
-from shadowforge_pkg.shield import activate_shield
+from banner import print_banner
+from modules.bedtime import main as bedtime_main
+from modules.recon import main as recon_main   # ← Fixed import
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="ShadowForge-Toolkit – Ethical pentest beast")
-    parser.add_argument("command", choices=["shield"], help="Module to run")
-    parser.add_argument("--target", default="127.0.0.1", help="Target IP")
+def main():
+    print_banner()
+
+    parser = argparse.ArgumentParser(prog="shadowforge", description="ShadowForge-Toolkit v2")
+    subparsers = parser.add_subparsers(dest="command", title="Commands")
+
+    # Bedtime purge
+    bedtime_parser = subparsers.add_parser("bedtime", help="Post-session purge")
+    bedtime_parser.add_argument("--mode", choices=["hacking", "bedtime"], default="bedtime")
+
+    # Recon module
+    recon_parser = subparsers.add_parser("recon", help="RustScan → Nmap recon")
+    recon_parser.add_argument("target", help="Target IP or range")
+
     args = parser.parse_args()
 
-    if args.command == "shield":
-        print("Forging ghost mode...")
-        activate_shield(target=args.target)
+    if args.command == "bedtime":
+        bedtime_main(mode=args.mode)
+
+    elif args.command == "recon":
+        recon_main(target=args.target)
+
+    else:
+        parser.print_help()
+
+if __name__ == "__main__":
+    main()
