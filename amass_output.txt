@@ -1,0 +1,2 @@
+# This will recreate the folder inside OneDrive and sync forever
+git clone https://github.com/Redbeardbradx/ShadowForge-Toolkit.git "C:\Users\bradm\OneDrive\MJ Goat Sales\ShadowForge-Toolkit"

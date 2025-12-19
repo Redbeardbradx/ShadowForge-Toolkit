@@ -1,0 +1,61 @@
+[-] Starting a search on top 500 sites from the Maigret database...
+[!] You can run search by full list of sites with flag `-a`
+[*] Checking username Brandon Kyle Gilbert on:
+[?25l
+
+on 14:
+[+] Armchairgm: https://armchairgm.fandom.com/wiki/User:Brandon%20Kyle%20Gilbert
+
+on 16:
+[+] BleachFandom: https://bleach.fandom.com/ru/wiki/%D0%A3%D1%87%D0%B0%D1%81%D1%82%D0%BD%D0%B8%D0%BA:Brandon%20Kyle%20Gilbert
+
+on 17:
+[+] FandomCommunityCentral: https://community.fandom.com/wiki/User:Brandon%20Kyle%20Gilbert
+
+on 18:
+[+] Battleraprus: https://battleraprus.fandom.com/ru/wiki/%D0%A3%D1%87%D0%B0%D1%81%D1%82%D0%BD%D0%B8%D0%BA:Brandon%20Kyle%20Gilbert
+
+on 87:
+[+] opensea.io: https://opensea.io/accounts/Brandon%20Kyle%20Gilbert
+
+on 112:
+[+] Kaggle: https://www.kaggle.com/Brandon%20Kyle%20Gilbert
+
+on 121:
+[+] Tom's guide: http://forums.tomsguide.com/members/?username=Brandon%20Kyle%20Gilbert
+
+on 160:
+[+] Studfile: https://studfile.net/users/Brandon%20Kyle%20Gilbert/
+
+on 188:
+[+] TechPowerUp: https://www.techpowerup.com/forums/members/?username=Brandon%20Kyle%20Gilbert
+
+on 202:
+[+] authorSTREAM: http://www.authorstream.com/author/Brandon%20Kyle%20Gilbert/
+
+on 210:
+[+] Livemaster: https://www.livemaster.ru/Brandon%20Kyle%20Gilbert
+
+on 236:
+[+] forums.serebii.net: https://forums.serebii.net/members/?username=Brandon%20Kyle%20Gilbert
+
+on 270:
+[+] forums.bulbagarden.net: http://forums.bulbagarden.net/members/?username=Brandon%20Kyle%20Gilbert
+
+on 304:
+[+] Picsart: https://picsart.com/u/Brandon%20Kyle%20Gilbert
+
+on 342:
+[+] hashnode: https://hashnode.com/@Brandon%20Kyle%20Gilbert
+
+on 355:
+[+] Bibsonomy: https://www.bibsonomy.org/user/Brandon%20Kyle%20Gilbert
+
+on 418:
+[+] HackingWithSwift: https://www.hackingwithswift.com/users/Brandon%20Kyle%20Gilbert
+
+on 476:
+[+] Edocr: https://www.edocr.com/user/Brandon%20Kyle%20Gilbert/
+
+on 477:
+[+] LiverpoolFC: https://forums.liverpoolfc.com/members/?username=Brandon%20Kyle%20Gilbert

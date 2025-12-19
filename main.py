@@ -7,6 +7,9 @@ from banner import print_banner
 from modules.bedtime import main as bedtime_main
 from modules.recon import main as recon_main
 from modules.osint import main as osint_main  # Adjust if signature changes
+from osint import run_osint
+from auto import run_auto_chain
+import payloads
 
 def main():
     print_banner()
@@ -14,7 +17,8 @@ def main():
     parser = argparse.ArgumentParser(prog="shadowforge", description="ShadowForge-Toolkit v2")
     parser.add_argument("--version", action="version", version="ShadowForge-Toolkit 0.2.0")
     parser.add_argument("-v", "--verbose", action="store_true", help="Enable verbose output")
-    
+    parser.add_parser('osint', help='OSINT gathering')
+    parser.add_parser('auto', help='Automated scan → payload chain')
     subparsers = parser.add_subparsers(dest="command", title="Commands")
     
     # Bedtime

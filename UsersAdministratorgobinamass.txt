@@ -1,0 +1,1 @@
+& "$env:C:\Users\Administrator\go\bin\amass.exe" --version
