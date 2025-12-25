@@ -1,78 +1,73 @@
-from typing import Optional, Dict, Any
+#!/usr/bin/env python3
 import subprocess
-import json
 import re
-import requests
-from typing import Dict, Any
-from .utils import enrich_services  # Shared utils for loop break
+from termcolor import colored
 
-def run_nmap_scan(target: str, session: Optional[requests.Session] = None) -> Dict[str, Any]:
-    """
-    Summon nmap -sV on target. Parse ports/services. Ethical: Owned nets only.
-    Returns JSON-ready dict: ports, services, vulns tease.
-    """
+def run_recon(target: str, aggressive: bool = False):
+    print(colored(f"[RECON RAID] Hammering lab target: {target}", "red"))
+
+    # Attacker-tuned options
+    rustscan_opts = "-b 1000 -t 1500"  # Lower batch for reliability on quiet hosts
+    nmap_chain_opts = "-Pn -sV -sC -O -T4"  # Force no ping, version, scripts, OS
+
+    if aggressive:
+        rustscan_opts = "-b 2000 -t 1200 --accessible"
+        nmap_chain_opts = "-Pn -sV -sC -O -p- --script vuln,exploit,brute -T5 --version-intensity 9"
+
+    rustscan_cmd = [
+        "docker", "run", "--rm", "-it",
+        "--ulimit", "nofile=1048576:1048576",
+        "rustscan/rustscan:2.1.1",
+        "-a", target,
+        *rustscan_opts.split(),
+        "--", *nmap_chain_opts.split()
+    ]
+
+    print(colored(f"[RUSTSCAN PHASE] {rustscan_cmd}", "cyan"))
+
     try:
-        # Nmap call: -sV version detect, -oX XML stub (parse later? Keep text for now)
         result = subprocess.run(
-            ['nmap', '-sV', '--open', target],  # All ports, open only
+            rustscan_cmd,
             capture_output=True,
             text=True,
-            timeout=120  # 2min cap for slow targets
+            encoding='utf-8',
+            errors='replace',
+            timeout=600
         )
-        if result.returncode != 0:
-            return {'target': target, 'timestamp': '2025-11-30', 'output': result.stdout, 'enriched': enriched, 'errors':        result.stderr}
 
-        # Parse stdout: Regex for ports/services (e.g., 80/tcp open http Apache 2.4.41)
-        output = result.stdout
-        ports = []
-        port_pattern = r'(\d+)/tcp\s+open\s+(\S+)\s+(.*)'
-        for match in re.finditer(port_pattern, output):
-            ports.append({
-                "port": match.group(1),
-                "protocol": "tcp",
-                "service": match.group(2),
-                "version": match.group(3).strip()
-            })
+        print(colored(result.stdout or "[NO STDOUT]", "green"))
+        if result.stderr:
+            print(colored(result.stderr.strip(), "magenta"))
 
-        # Enrich with CVEs
-        services = enrich_services(ports)
+        # Force deep native Nmap even if RustScan reports nothing (defender ICMP block common)
+        print(colored("[FORCE DEEP NMAP] Bypassing potential RustScan miss", "yellow"))
+        native_opts = nmap_chain_opts if not aggressive else nmap_chain_opts.replace("-p-", "")
+        native_cmd = ["nmap", *native_opts.split(), target]
 
-        data = {
-            "target": target,
-            "scan_time": subprocess.run(['date', '+%Y-%m-%d %H:%M:%S'], capture_output=True, text=True).stdout.strip(),
-            "ports_open": len(services),
-            "services": services,
-            "vulns": []  # Tease: Later, match versions to CVE JSON
-        }
-
-        # Geocode chain: Free ipinfo.io (no key for basics)
-        try:
-            if session:
-                geo_resp = session.get(f"http://ipinfo.io/{target}/json", timeout=10)
-            else:
-                geo_resp = requests.get(f"http://ipinfo.io/{target}/json", timeout=10)
-            if geo_resp.status_code == 200:
-                geo = geo_resp.json()
-                data["geo"] = {
-                    "ip": geo.get("ip", "Unknown"),
-                    "city": geo.get("city", "Unknown"),
-                    "loc": geo.get("loc", "No coords"),
-                    "org": geo.get("org", "Unknown ISP")
-                }
-        except requests.RequestException:
-            data["geo"] = {"error": "Geocode fetch failed—check net."}
-
-        return data
+        native_result = subprocess.run(
+            native_cmd,
+            capture_output=True,
+            text=True,
+            encoding='utf-8',
+            errors='replace'
+        )
+        print(colored(native_result.stdout or "[NO OUTPUT]", "green"))
+        if native_result.stderr:
+            print(colored(native_result.stderr.strip(), "magenta"))
 
     except FileNotFoundError:
-        return {"error": "Nmap not in PATH—install: apt/yum install nmap or brew install nmap."}
-    except Exception as e:
-        return {"error": f"Recon raid failed: {str(e)}"}
+        print(colored("[-] Docker daemon down → pure native Nmap fallback", "red"))
+        fallback_nmap(target, aggressive)
+    except subprocess.TimeoutExpired:
+        print(colored("[-] RustScan timeout → native fallback", "yellow"))
+        fallback_nmap(target, aggressive)
 
-def output_json(data: Dict[str, Any], filepath: str = None) -> str:
-    """Dump to JSON string or file. Colored tease via rich (import in main)."""
-    json_str = json.dumps(data, indent=2)
-    if filepath:
-        with open(filepath, 'w') as f:
-            f.write(json_str)
-    return json_str
+def fallback_nmap(target, aggressive):
+    opts = "-Pn -sV -sC -O -T4"
+    if aggressive:
+        opts = "-Pn -sV -sC -O -p- --script vuln,exploit,brute -T5"
+    cmd = ["nmap", *opts.split(), target]
+    res = subprocess.run(cmd, capture_output=True, text=True, encoding='utf-8', errors='replace')
+    print(colored(res.stdout or "[NO OUTPUT]", "green"))
+
+print(colored("[RECON COMPLETE] Full chain executed – review output for live services.", "green"))

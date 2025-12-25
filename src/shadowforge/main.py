@@ -1,81 +1,81 @@
 #!/usr/bin/env python3
-# ShadowForge: Core CLI – Recon raids + shield seals. Utah Viking edition. Windows PS primed.
+# ShadowForge Toolkit — Modular Ethical Hacking Suite. Utah Viking edition.
 import argparse
-import subprocess
-import sys
+import importlib
 import os
-import argparse  # For mock args
+import sys
+from termcolor import colored
 
-def recon_scan(target):
-    """Recon: Nmap sweep (Drac bash pivot—direct for PS). OSINT stub inbound."""
-    print(f"\033[95m[RECON RAID]\033[0m Hammering {target}—services spill like Viking loot.")
-    try:
-        # Nmap core—Windows fire
-        nmap_cmd = ['nmap', '-sV', '--open', target]  # --open for live ports only
-        nmap_result = subprocess.run(nmap_cmd, capture_output=True, text=True, timeout=45)
-        if nmap_result.returncode == 0:
-            print(nmap_result.stdout)
-            print(f"\033[92m[INTEL DROP]\033[0m Services mapped—{len([line for line in nmap_result.stdout.splitlines() if 'open' in line.lower()])} gates open. Vulns next.")
-        else:
-            print(f"\033[91m[NMAP FAIL]\033[0m {nmap_result.stderr}. Strap nmap: winget install Insecure.Nmap.")
-        
-        # Drac Pivot: Bash stub—if Linux VM, subprocess.call(['./Dracnmap/Dracnmap.sh', target]); else, nmap echo.
-        if os.name == 'nt':  # Windows detect
-            print("\033[93m[DRAC PIVOT]\033[0m Bash beast sleeps on PS—raid VM (Kali VBox) or bolt Recon-NG: pip install recon-ng.")
-        else:
-            drac_path = os.path.join(os.getcwd(), 'Dracnmap', 'Dracnmap.sh')
-            if os.path.exists(drac_path):
-                subprocess.run(['bash', drac_path, target], timeout=60)
-            else:
-                print("\033[93m[WARNING]\033[0m Drac dir MIA—git clone https://github.com/screetsec/Dracnmap; chmod +x Dracnmap.sh.")
-        
-        # Recon-NG Stub (OSINT bolt—pip if not loaded)
-        try:
-            recon_ng_result = subprocess.run(['recon-ng', '-c', f'modules load recon/domains-hosts/shodan_hostname; options set SOURCE {target}; run'], 
-                                             capture_output=True, text=True, timeout=30, shell=True)
-            if recon_ng_result.returncode == 0:
-                print(f"\033[93m[OSINT GLEAN]\033[0m {recon_ng_result.stdout[:300]}...")  # Snippet
-        except FileNotFoundError:
-            print("\033[93m[RECON-NG ARMORY]\033[0m Not strapped—pip install recon-ng; recon-ng -ir (install modules).")
-            
-    except FileNotFoundError:
-        print("\033[93m[NMAP ARMORY]\033[0m Nmap ghosted—winget install Insecure.Nmap; PATH refresh.")
-    except subprocess.TimeoutExpired:
-        print("\033[93m[TIMEOUT]\033[0m Target's a wall—add -T4 for speed.")
+# Proper package path
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-def shield_scan(args):
-    """Shield import & call."""
-    try:
-        import shield
-        shield.main(args)  # Your shield.py main() flex
-    except ImportError:
-        print("\033[91m[SHIELD GHOST]\033[0m shield.py MIA or no main()—forge it from Day 4 drop.")
+def load_modules():
+    modules_dir = os.path.join(os.path.dirname(__file__), "modules")
+    loaded = []
+    for filename in os.listdir(modules_dir):
+        if filename.endswith(".py") and filename not in ["__init__.py"]:
+            mod_name = filename[:-3]
+            try:
+                importlib.import_module(f"shadowforge.modules.{mod_name}")
+                print(colored(f"[+] Forged {mod_name} into arsenal", "green"))
+                loaded.append(mod_name)
+            except Exception as e:
+                print(colored(f"[-] {mod_name} forge failed: {e}", "red"))
+    return loaded
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="ShadowForge: Recon, shield, auto—dominate.")
-    subparsers = parser.add_subparsers(dest='command', help='Commands: recon | shield | auto')
+def main():
+    parser = argparse.ArgumentParser(
+        description="ShadowForge: Recon raids, shield seals, auto chains—dominate your lab.",
+        epilog="Use only on systems you own or have explicit permission to test."
+    parser.add_argument('module', choices=['recon', 'osint', 'shield', 'ai_suggest', 'cleanse', 'bedtime', 'scan'],
+        help='Module to execute')
+    )
+    subparsers = parser.add_subparsers(dest="command", help="Commands")
 
-    recon_parser = subparsers.add_parser('recon', help='Port/OSINT raid')
-    recon_parser.add_argument('--target', required=True, help='IP/hostname probe')
+    # Recon subcommand
+    recon_parser = subparsers.add_parser("recon", help="Port/OSINT raid")
+    recon_parser.add_argument("--target", required=True, help="IP/domain to hammer")
+    recon_parser.add_argument("--aggressive", action="store_true", help="Full port + vuln scripts")
 
-    shield_parser = subparsers.add_parser('shield', help='Proc/port seal')
-    shield_parser.add_argument('--target', default='127.0.0.1', nargs='?', help='IP seal')
+    # Shield subcommand
+    shield_parser = subparsers.add_parser("shield", help="Proc/port seal + evasion")
+    shield_parser.add_argument("--target", default="127.0.0.1", help="Target for shield ops")
 
-    auto_parser = subparsers.add_parser('auto', help='Chain raid → seal')
-    auto_parser.add_argument('--target', required=True, help='Full auto target')
+    # Auto chain
+    auto_parser = subparsers.add_parser("auto", help="Full chain: recon → shield")
+    auto_parser.add_argument("--target", required=True, help="Target for full auto raid")
 
     args = parser.parse_args()
+    load_modules()
 
-    if args.command == 'recon':
-        recon_scan(args.target)
-    elif args.command == 'shield':
-        shield_scan(args)
-    elif args.command == 'auto':
-        recon_scan(args.target)
-        shield_args = argparse.Namespace(target=args.target)
-        shield_scan(shield_args)
+    if args.command == "recon":
+        from shadowforge.modules.recon import run_recon
+        run_recon(args.target, aggressive=args.aggressive)
+    if args.module in ['recon', 'scan']:
+        from shadowforge.modules.recon import run_recon
+        run_recon(args)
+    elif args.command == "shield":
+        from shadowforge.modules.shield import run_shield
+        run_shield(args.target)
+    elif args.command == "auto":
+        from shadowforge.modules.recon import run_recon
+        from shadowforge.modules.shield import run_shield
+        print(colored("[AUTO CHAIN] Raid → Seal sequence initiated", "magenta"))
+        run_recon(args.target, aggressive=True)
+        run_shield(args.target)
     else:
         parser.print_help()
         sys.exit(1)
 
-    print("\033[92m[FORGE WIN]\033[0m Cycle crushed—log the loot, brother.")
+    print(colored("[FORGE WIN] Cycle crushed—log the loot, brother.", "green"))
+
+if __name__ == "__main__":
+    print(colored("""
+    ███████╗██╗  ██╗ █████╗ ██████╗  ██████╗ ██╗    ██╗███████╗ ██████╗ ██████╗  ██████╗ ███████╗
+    ██╔════╝██║  ██║██╔══██╗██╔══██╗██╔════╝ ██║    ██║██╔════╝██╔═══██╗██╔══██╗██╔════╝ ██╔════╝
+    ███████╗███████║███████║██║  ██║██║  ███╗██║ █╗ ██║█████╗  ██║   ██║██████╔╝██║  ███╗█████╗  
+    ╚════██║██╔══██║██╔══██║██║  ██║██║   ██║██║███╗██║██╔══╝  ██║   ██║██╔══██╗██║   ██║██╔══╝  
+    ███████║██║  ██║██║  ██║██████╔╝╚██████╔╝╚███╔███╔╝██║     ╚██████╔╝██║  ██║╚██████╔╝██║     
+    ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝  ╚═════╝  ╚══╝╚══╝ ╚═╝      ╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚═╝    
+    """, "red"))
+    main()
