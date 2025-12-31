@@ -1,73 +1,53 @@
-#!/usr/bin/env python3
+# src/shadowforge/modules/recon.py
+# Pure local Nmap recon — fast, reliable, no dependencies beyond Nmap
+
 import subprocess
-import re
+import os
 from termcolor import colored
 
-def run_recon(target: str, aggressive: bool = False):
+def run_recon(args):
+    target = args.target.strip()
+    aggressive = args.aggressive or args.full
+
     print(colored(f"[RECON RAID] Hammering lab target: {target}", "red"))
-
-    # Attacker-tuned options
-    rustscan_opts = "-b 1000 -t 1500"  # Lower batch for reliability on quiet hosts
-    nmap_chain_opts = "-Pn -sV -sC -O -T4"  # Force no ping, version, scripts, OS
-
     if aggressive:
-        rustscan_opts = "-b 2000 -t 1200 --accessible"
-        nmap_chain_opts = "-Pn -sV -sC -O -p- --script vuln,exploit,brute -T5 --version-intensity 9"
+        print(colored("[!] AGGRESSIVE MODE — scanning all 65535 ports + scripts", "yellow"))
 
-    rustscan_cmd = [
-        "docker", "run", "--rm", "-it",
-        "--ulimit", "nofile=1048576:1048576",
-        "rustscan/rustscan:2.1.1",
-        "-a", target,
-        *rustscan_opts.split(),
-        "--", *nmap_chain_opts.split()
+    os.makedirs("reports", exist_ok=True)
+
+    # Base Nmap flags
+    nmap_cmd = [
+        "nmap",
+        "-T4",                     # timing template 4 (aggressive but stable)
+        "-Pn",                     # skip host discovery
+        "-sV",                     # version detection
+        "-sC",                     # default script scan
+        "-O",                      # OS fingerprint
+        "--stats-every", "10s",    # progress feedback every 10s
+        "-oA", f"reports/recon_{target.replace('/', '_')}"  # all formats to host reports/
     ]
 
-    print(colored(f"[RUSTSCAN PHASE] {rustscan_cmd}", "cyan"))
+    if aggressive:
+        nmap_cmd.append("-p-")     # full port range
+
+    nmap_cmd.append(target)
+
+    print(colored(f"[NMAP PHASE] Executing: {' '.join(nmap_cmd)}", "cyan"))
 
     try:
-        result = subprocess.run(
-            rustscan_cmd,
-            capture_output=True,
-            text=True,
-            encoding='utf-8',
-            errors='replace',
-            timeout=600
-        )
-
-        print(colored(result.stdout or "[NO STDOUT]", "green"))
-        if result.stderr:
-            print(colored(result.stderr.strip(), "magenta"))
-
-        # Force deep native Nmap even if RustScan reports nothing (defender ICMP block common)
-        print(colored("[FORCE DEEP NMAP] Bypassing potential RustScan miss", "yellow"))
-        native_opts = nmap_chain_opts if not aggressive else nmap_chain_opts.replace("-p-", "")
-        native_cmd = ["nmap", *native_opts.split(), target]
-
-        native_result = subprocess.run(
-            native_cmd,
-            capture_output=True,
-            text=True,
-            encoding='utf-8',
-            errors='replace'
-        )
-        print(colored(native_result.stdout or "[NO OUTPUT]", "green"))
-        if native_result.stderr:
-            print(colored(native_result.stderr.strip(), "magenta"))
-
+        # Live output + progress
+        subprocess.run(nmap_cmd, check=False)
     except FileNotFoundError:
-        print(colored("[-] Docker daemon down → pure native Nmap fallback", "red"))
-        fallback_nmap(target, aggressive)
-    except subprocess.TimeoutExpired:
-        print(colored("[-] RustScan timeout → native fallback", "yellow"))
-        fallback_nmap(target, aggressive)
+        print(colored("[X] Nmap not found in PATH — install it first", "red"))
+        return
 
-def fallback_nmap(target, aggressive):
-    opts = "-Pn -sV -sC -O -T4"
-    if aggressive:
-        opts = "-Pn -sV -sC -O -p- --script vuln,exploit,brute -T5"
-    cmd = ["nmap", *opts.split(), target]
-    res = subprocess.run(cmd, capture_output=True, text=True, encoding='utf-8', errors='replace')
-    print(colored(res.stdout or "[NO OUTPUT]", "green"))
+    # Quick live summary from .nmap file
+    nmap_file = f"reports/recon_{target.replace('/', '_')}.nmap"
+    if os.path.exists(nmap_file):
+        print(colored("\n[+] LIVE FINDINGS SUMMARY", "green"))
+        with open(nmap_file, "r") as f:
+            for line in f:
+                if any(keyword in line.lower() for keyword in ["open", "os:", "service"]):
+                    print(colored(f"    {line.strip()}", "yellow"))
 
-print(colored("[RECON COMPLETE] Full chain executed – review output for live services.", "green"))
+    print(colored("[RECON COMPLETE] Results in reports/ (recon_<target>.*) — move on with your Christmas.", "green"))

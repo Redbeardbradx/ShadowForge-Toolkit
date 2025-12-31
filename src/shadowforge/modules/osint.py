@@ -14,6 +14,14 @@ def harvester_collect(domain: str, sources: str = "all", limit: int = 500):
     print(colored(f"[+] TheHarvester passive collection on {domain}", "yellow"))
     output_file = f"results/{domain}_harvester.json"
     os.makedirs("results", exist_ok=True)
+def amass_enum(domain: str):
+    """Run Amass enum on target domain (lab only)."""
+    # Replace placeholder comments with actual code or pass for now
+    import subprocess
+    print(f"[+] Running Amass enum on {domain}")
+    # subprocess.call(["amass", "enum", "-d", domain])  # uncomment when Amass installed
+    pass  # temporary until full implementation
+
     
     cmd = [
         "theharvester",

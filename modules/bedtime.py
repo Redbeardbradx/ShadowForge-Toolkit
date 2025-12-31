@@ -50,3 +50,6 @@ if __name__ == "__main__":
     import sys
     m = sys.argv[1] if len(sys.argv) > 1 else "bedtime"
     main(mode=m)
+
+def run(args):
+    # your existing code here

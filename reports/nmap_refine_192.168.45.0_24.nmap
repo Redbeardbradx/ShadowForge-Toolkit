@@ -1,0 +1,1 @@
+# Nmap 7.98 scan initiated Wed Dec 24 20:43:12 2025 as: nmap -T4 -Pn -sV -sC -O -oA reports/nmap_refine_192.168.45.0_24 192.168.45.0/24
