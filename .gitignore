@@ -1,29 +1,50 @@
-﻿# Python
+﻿# Python / venv
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
-.env
-venv/
 .venv/
-
-# Logs & Temp
-logs/
-*.log
-~/
-*.tmp
-
-# IDE / Windows junk
-.vscode/
-.idea/
-.DS_Store
-Thumbs.db
-*.swp
-
-# Build / Dist
-dist/
-build/
+venv/
 *.egg-info/
-"masscan*.exe" 
-"masscan64.exe" 
-"masscan*.exe" 
+.python-version
+
+# Tools / binaries
+*.exe
+*.lnk
+masscan64.exe
+chromedriver.exe
+
+# Temp / logs / outputs
+*.log
+*.csv
+*.xml
+*.txt  # review important ones manually
+osint_logs.csv
+scan.xml
+patch_log*
+onedrive_recon_log.txt
+os_log.txt
+amass_output.txt
+
+# Experiments / junk
+bedtime.*
+stress.py
+stess.py
+cleaner_v3.py
+cleanup.ps1
+posthack.*
+pid_hunter.py
+io_hog_hunt.py
+net_ghost_hunt.py
+safe_*_hunt.py
+rig_*.py
+fantasy_land_box.py
+J
+~/
+shadowforge-repo.bundle
+
+# IDE / OS
+.idea/
+*.swp
+Thumbs.db
+Desktop.ini
