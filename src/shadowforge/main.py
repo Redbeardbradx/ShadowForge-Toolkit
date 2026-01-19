@@ -1,85 +1,77 @@
+# src/shadowforge/main.py
 import argparse
-import importlib
-import os
-import sys
 from termcolor import colored
+import sys
+import traceback
 
-# Resolve project root and add to path
-PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.insert(0, PROJECT_ROOT)
+# Graceful imports - CLI works even if modules missing
+run_recon = None
+run_osint = None
+generate_payload = None
 
-# Discover modules dynamically (scan modules/ dir)
-def discover_modules():
-    modules_dir = os.path.join(PROJECT_ROOT, "modules")
-    modules = []
-    if os.path.isdir(modules_dir):
-        for filename in os.listdir(modules_dir):
-            if filename.endswith(".py") and filename != "__init__.py":
-                modules.append(filename[:-3])
-    return modules
+try:
+    from shadowforge.recon import run_recon
+except ImportError as e:
+    print(colored(f"[!] Recon missing: {e}", "red"), file=sys.stderr)
 
-AVAILABLE_MODULES = discover_modules()
+try:
+    from shadowforge.osint import run_osint
+except ImportError as e:
+    print(colored(f"[!] OSINT missing: {e}", "red"), file=sys.stderr)
 
-def load_module(mod_name):
-    try:
-        return importlib.import_module(f"modules.{mod_name}")
-    except Exception as e:
-        print(colored(f"[-] Failed to load module '{mod_name}': {e}", "red"))
-        return None
-
-def print_banner():
-    banner = """
-    ███████╗██╗ ██╗ █████╗ ██████╗ ██████╗ ██╗ ██╗███████╗ ██████╗ ██████╗ ██████╗ ███████╗
-    ██╔════╝██║ ██║██╔══██╗██╔══██╗██╔════╝ ██║ ██║██╔════╝██╔═══██╗██╔══██╗██╔════╝ ██╔════╝
-    ███████╗███████║███████║██║ ██║██║ ███╗██║ █╗ ██║█████╗ ██║ ██║██████╔╝██║ ███╗█████╗
-    ╚════██║██╔══██║██╔══██║██║ ██║██║ ██║██║███╗██║██╔══╝ ██║ ██║██╔══██╗██║ ██║██╔══╝
-    ███████║██║ ██║██║ ██║██████╔╝╚██████╔╝╚███╔███╔╝██║ ╚██████╔╝██║ ██║╚██████╔╝██║
-    ╚══════╝╚═╝ ╚═╝╚═╝ ╚═╝╚═════╝ ╚═════╝ ╚══╝╚══╝ ╚═╝ ╚═════╝ ╚═╝ ╚═╝ ╚═════╝ ╚═╝
-    """
-    print(colored(banner, "red"))
-    print(colored("ShadowForge Toolkit — Lean. Fast. Ethical.", "yellow"))
-    print(colored("Use only on systems you own or have explicit permission to test.", "yellow"))
+try:
+    from shadowforge.payloads import generate_payload
+except ImportError as e:
+    print(colored(f"[!] Payloads missing: {e}", "red"), file=sys.stderr)
 
 def main():
-    parser = argparse.ArgumentParser(); subparsers = parser.add_subparsers.add_parser('recon', help='Reconnaissance       tools'); recon_parser.add_argument('--scan', help='Target IP')
-        description="ShadowForge Toolkit CLI",
-        epilog="Legal reminder: Restricted to lab environments only."
+    parser = argparse.ArgumentParser(
+        prog="shadowforge",
+        description="ShadowForge Toolkit - Ethical pentest lab suite",
+        epilog="Lab VMs only. 18 U.S.C. §1030 violation otherwise."
     )
-    subparsers = parser.add_subparsers(dest="command", required=True, help="Available modules/commands")
 
-    # Global flags (before subcommands)
-    parser.add_argument("--verbose", "-v", action="store_true", help="Enable verbose output")
+    subparsers = parser.add_subparsers(dest="command", required=True)
 
-    # Dynamically add subparsers for each discovered module
-    for mod_name in AVAILABLE_MODULES:
-        mod_parser = subparsers.add_parser(mod_name, help=f"Run {mod_name} module")
-        # Common args for all modules
-        mod_parser.add_argument("--target", "-t", help="Target IP, domain, or network (e.g., 192.168.1.0/24)")
-        mod_parser.add_argument("--aggressive", "-a", action="store_true", help="Enable aggressive mode (faster, noisier)")
-        mod_parser.add_argument("--full", "-f", action="store_true", help="Run full chain (implies aggressive)")
-        # Module-specific args (extend per module; e.g., for recon)
-        if mod_name == "recon":
-            mod_parser.add_argument("--type", choices=["ping-sweep", "port-scan"], default="ping-sweep", help="Recon type")
-            mod_parser.add_argument("--ports", default="1-1024", help="Port range for scans (e.g., 1-65535)")
+    # recon
+    recon_p = subparsers.add_parser("recon", help="Nmap wrapper scan")
+    recon_p.add_argument("--target", required=True, help="Lab IP/range")
+    recon_p.add_argument("--scan", default="ping", choices=["ping", "tcp", "version", "os"])
+    recon_p.add_argument("--ports", default="1-1000")
 
-        # More modules can add custom args here via if-blocks
+    # osint stub
+    osint_p = subparsers.add_parser("osint", help="OSINT gathering")
+    osint_p.add_argument("--domain", required=True, help="Target domain")
+
+    # payloads (booty!)
+    payload_p = subparsers.add_parser("payloads", help="Generate reverse shell")
+    payload_p.add_argument("--type", required=True, choices=["reverse"])
+    payload_p.add_argument("--ip", required=True, help="Listener IP")
+    payload_p.add_argument("--port", type=int, required=True, help="Listener port")
 
     args = parser.parse_args()
 
-    if args.full and not args.target:
-        parser.error("--full requires --target")
-
-    if args.full:
-        args.aggressive = True
-
-    print_banner()
-    print(colored(f"[+] Executing command: {args.command}", "green"))
-
-    module = load_module(args.command)
-    if module and hasattr(module, "run"):
-        module.run(args)
-    else:
-        print(colored(f"[!] Module '{args.command}' lacks a 'run' function or failed to load.", "red"))
+    try:
+        if args.command == "recon":
+            if run_recon is None:
+                print(colored("[!] Create src/shadowforge/recon.py", "red"))
+            else:
+                run_recon(args.target, args.scan, args.ports)
+        elif args.command == "osint":
+            if run_osint is None:
+                print(colored("[!] Create src/shadowforge/osint.py", "red"))
+            else:
+                run_osint(args.domain)
+        elif args.command == "payloads":
+            if generate_payload is None:
+                print(colored("[!] Create src/shadowforge/payloads.py", "red"))
+            else:
+                generate_payload(args.type, args.ip, args.port)
+        else:
+            parser.print_help()
+    except Exception as e:
+        print(colored(f"[!] Error: {e}", "red"))
+        traceback.print_exc(file=sys.stderr)
 
 if __name__ == "__main__":
     main()

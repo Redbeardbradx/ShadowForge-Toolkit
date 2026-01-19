@@ -48,3 +48,7 @@ shadowforge-repo.bundle
 *.swp
 Thumbs.db
 Desktop.ini
+
+phoneinfoga/results/
+feroxbuster/*.txt
+sherlock/results/
