@@ -26,4 +26,3 @@ shadowforge = "shadowforge.main:cli_entry"
 
 [project.urls]
 Homepage = "https://github.com/Redbeardbradx/ShadowForge-Toolkit"
-# Save. Verify parse: python -c "import tomllib; tomllib.loads(open('pyproject.toml').read())"  # No error—clean rune

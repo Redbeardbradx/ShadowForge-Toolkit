@@ -1,30 +1,60 @@
-﻿# Python / venv
+﻿# Python
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
+*.py[cod]
+*$py.class
+*.so
+.Python
 .venv/
 venv/
-*.egg-info/
+env/
+ENV/
 .python-version
+*.egg-info/
+.eggs/
+dist/
+build/
+pip-wheel-metadata/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
 
-# Tools / binaries
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Vendored scanner/brute-force binaries — invoke from PATH, do not commit
 *.exe
+*.dll
 *.lnk
+tools/amass_Windows_amd64/
+tools/feroxbuster/
+feroxbuster/
 masscan64.exe
 chromedriver.exe
 
-# Temp / logs / outputs
-*.log
-*.csv
-*.xml
-*.txt  # review important ones manually
+# Scan output and generated reports
+reports/
+output/
+*.nmap
+*.gnmap
 osint_logs.csv
 scan.xml
 patch_log*
 onedrive_recon_log.txt
 os_log.txt
 amass_output.txt
+phoneinfoga/results/
+sherlock/results/
+
+# Temp / logs
+*.log
+*.csv
+*.xml
 
 # Experiments / junk
 bedtime.*
@@ -39,16 +69,12 @@ net_ghost_hunt.py
 safe_*_hunt.py
 rig_*.py
 fantasy_land_box.py
-J
-~/
 shadowforge-repo.bundle
 
 # IDE / OS
 .idea/
+.vscode/
 *.swp
 Thumbs.db
 Desktop.ini
-
-phoneinfoga/results/
-feroxbuster/*.txt
-sherlock/results/
+.DS_Store
