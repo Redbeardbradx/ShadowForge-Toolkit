@@ -1,20 +1,23 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "shadowforge"
-version = "0.1.0"
-description = "Utah Viking's ethical pentest toolkit—scan, payload, shield."
+version = "0.2.0"
+description = "Self-exposure checker for your own email, username, and name."
 readme = "README.md"
 requires-python = ">=3.8"
 dependencies = [
-    "rich>=13.0",
+    "dnspython>=2.4",
     "requests>=2.28",
-    "scapy>=2.4",
-    "stem>=1.8"
+    "rich>=13.0",
 ]
 authors = [
     {name = "Redbeard Bradx", email = "your@email.com"}
 ]
 license = {text = "MIT"}
-keywords = ["pentest", "ethical-hacking", "network-scan"]
+keywords = ["self-assessment", "hibp", "privacy"]
 
 [project.optional-dependencies]
 dev = [
@@ -22,7 +25,14 @@ dev = [
 ]
 
 [project.scripts]
-shadowforge = "shadowforge.main:cli_entry"
+shadowforge = "shadowforge.selfcheck.cli:main"
 
 [project.urls]
 Homepage = "https://github.com/Redbeardbradx/ShadowForge-Toolkit"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["src/shadowforge/tests"]
+pythonpath = ["src"]
