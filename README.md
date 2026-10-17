@@ -1,30 +1,15 @@
-\# ShadowForge-Toolkit
+# ShadowForge-Toolkit
 
+Python project scaffold. Vendored Windows scanner binaries and committed scan output are not part of this tree. External tools, if used at all, should come from the system PATH.
 
+## Repository notes
 
-Ethical penetration testing suite built in Python for isolated lab environments.
+- Package metadata lives in `pyproject.toml`.
+- Python sources are under `src/shadowforge/` and at the repository root. Several modules are duplicated and unfinished.
+- Generated reports belong in `reports/` or `output/`, both gitignored.
 
-
-
-\## Features
-
-\- Modular CLI (recon, osint, payloads, auto chains)
-
-\- Nmap wrapper for scanning
-
-\- Shodan/TheHarvester OSINT
-
-\- Reverse shell generation (lab only)
-
-\- Evasion \& proxy tools (WIP)
-
-
-
-\## Installation
+## Installation
 
 ```bash
-
 pip install -e .
-
-shadowforge --help
-
+```
